@@ -1,54 +1,35 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { SearchBar } from "@/components/SearchBar";
 import { CategoryPills } from "@/components/CategoryPills";
 import { OutfitCard } from "@/components/OutfitCard";
 import { TrustBanner } from "@/components/TrustBanner";
 import { BottomNav } from "@/components/BottomNav";
+import { OUTFITS } from "@/lib/mockData";
 import heroImage from "@/assets/hero-marketplace.jpg";
 import senatorOutfit from "@/assets/outfit-senator.jpg";
 import babaribaOutfit from "@/assets/outfit-babariga.jpg";
 
-// Mock data for outfits
-const OUTFITS = [
-  {
-    id: "1",
-    image: senatorOutfit,
-    title: "Premium Senator Kaftan",
-    price: 12000,
-    rating: 4.9,
-    orderCount: 234,
-  },
-  {
-    id: "2",
-    image: babaribaOutfit,
-    title: "Royal Babariga",
-    price: 15000,
-    rating: 4.8,
-    orderCount: 189,
-  },
-  {
-    id: "3",
-    image: senatorOutfit,
-    title: "Classic Senator Style",
-    price: 10000,
-    rating: 4.7,
-    orderCount: 156,
-  },
-  {
-    id: "4",
-    image: babaribaOutfit,
-    title: "Traditional Babariga",
-    price: 13500,
-    rating: 4.9,
-    orderCount: 203,
-  },
-];
-
 const Index = () => {
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [activeNav, setActiveNav] = useState<"home" | "search" | "orders" | "profile">("home");
+
+  const handleOutfitClick = (outfit: typeof OUTFITS[0]) => {
+    // Use alternating images based on ID
+    const outfitImage = parseInt(outfit.id) % 2 === 1 ? senatorOutfit : babaribaOutfit;
+    
+    navigate(`/outfit/${outfit.id}`, {
+      state: {
+        outfit: {
+          ...outfit,
+          image: outfitImage
+        }
+      }
+    });
+  };
 
   return (
     <div className="min-h-screen bg-background pb-20">
@@ -92,11 +73,16 @@ const Index = () => {
             </button>
           </div>
           <div className="grid grid-cols-2 gap-4">
-            {OUTFITS.map((outfit) => (
+            {OUTFITS.map((outfit, index) => (
               <OutfitCard
                 key={outfit.id}
-                {...outfit}
-                onClick={() => console.log("Outfit clicked:", outfit.id)}
+                id={outfit.id}
+                title={outfit.name}
+                price={outfit.price}
+                rating={outfit.rating}
+                orderCount={outfit.orders}
+                image={index % 2 === 0 ? senatorOutfit : babaribaOutfit}
+                onClick={() => handleOutfitClick(outfit)}
               />
             ))}
           </div>
