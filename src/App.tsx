@@ -8,6 +8,7 @@ import OutfitDetail from "./pages/OutfitDetail";
 import FabricSelection from "./pages/FabricSelection";
 import TailorSelection from "./pages/TailorSelection";
 import OrderSummary from "./pages/OrderSummary";
+import OrderTracking from "./pages/OrderTracking";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/fabric" element={<FabricSelection />} />
           <Route path="/tailor" element={<TailorSelection />} />
           <Route path="/order-summary" element={<OrderSummary />} />
+          <Route path="/order-tracking/:orderId?" element={<OrderTracking />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

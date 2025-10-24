@@ -133,8 +133,8 @@ const OrderSummary = () => {
       setShowSuccess(true);
       
       setTimeout(() => {
-        navigate("/", { replace: true });
-      }, 5000);
+        navigate("/order-tracking", { replace: true });
+      }, 3000);
     }, 2000);
   };
 
@@ -177,10 +177,10 @@ const OrderSummary = () => {
           </Card>
 
           <div className="space-y-3">
-            <Button size="lg" className="w-full max-w-sm" onClick={() => navigate("/")}>
+            <Button size="lg" className="w-full max-w-sm" onClick={() => navigate("/order-tracking")}>
               Track Your Order
             </Button>
-            <p className="text-xs text-muted-foreground">Redirecting in 5 seconds...</p>
+            <p className="text-xs text-muted-foreground">Redirecting in 3 seconds...</p>
           </div>
         </div>
       </div>
